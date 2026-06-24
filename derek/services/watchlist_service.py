@@ -49,3 +49,21 @@ def get_watchlist(user_id):
         film_dict["public"] = entry.public
         result.append(film_dict)
     return result
+
+
+def remove_from_watchlist(user_id, film_id):
+    """Remove a film from a user's watchlist.
+
+    Follows verb_to_noun naming and mirrors remove_from_collection().
+    Returns False (no-op) when the film is not on the watchlist rather than
+    raising, so callers can treat removal as idempotent.
+    """
+    entry = WatchlistEntry.query.filter_by(
+        user_id=user_id, film_id=film_id
+    ).first()
+    if entry is None:
+        return False
+
+    db.session.delete(entry)
+    db.session.commit()
+    return True

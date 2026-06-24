@@ -55,3 +55,9 @@ def test_add_to_watchlist_nonexistent_film_raises(app, sample_user):
         fake_film_id = "00000000-0000-0000-0000-000000000000"
         with pytest.raises(FilmNotFoundError):
             add_to_watchlist(user_id=sample_user, film_id=fake_film_id)
+
+
+def test_remove_from_watchlist_not_on_list_returns_false(app, sample_user, sample_film):
+    """Removing a film that isn't on the watchlist is a no-op returning False."""
+    with app.app_context():
+        assert remove_from_watchlist(user_id=sample_user, film_id=sample_film) is False

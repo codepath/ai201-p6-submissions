@@ -18,6 +18,14 @@ def add_to_watchlist(user_id, film_id):
     if film is None:
         raise FilmNotFoundError(f"No film found with id '{film_id}'")
 
+    # Deduplication: don't add a film that's already on the watchlist.
+    # Mirrors the existing-entry check in add_to_collection() (collection_service.py).
+    existing = WatchlistEntry.query.filter_by(
+        user_id=user_id, film_id=film_id
+    ).first()
+    if existing:
+        return existing
+
     entry = WatchlistEntry(user_id=user_id, film_id=film_id)
     db.session.add(entry)
     db.session.commit()

@@ -3,43 +3,47 @@
 Calibration submissions for **AI201 Project 6 (CineLog — Simulated Code Review)**, used to
 validate the AI grader against known target scores. Forked from
 [`jamjamgobambam/ai201-project6-cinelog-starter`](https://github.com/jamjamgobambam/ai201-project6-cinelog-starter).
-
 Total points: **28** (25 required + 3 stretch).
 
-| Persona | Branch | Tier | Target Score | % of Required |
-|---------|--------|------|-------------|---------------|
-| maya-chen | `maya-commits` | exemplar | 28/28 | 112% |
-| derek-okafor | `derek-commits` | strong | 25/28 | 100% |
-| priya-nair | `priya-commits` | borderline-pass | 18/28 | 72% |
-| jordan-rivera | `jordan-commits` | borderline-fail | 14/28 | 56% |
-| tyler-walsh | `tyler-commits` | minimal | 0/28 | 0% |
+## Structure (both monorepo browsing *and* real commit history)
 
-## How to run the grader
+Each persona is a **branch**, and on that branch the persona's full submission lives in a
+**`<persona>/` subfolder** (so it browses like a monorepo) while the branch carries that persona's
+**real git commit history** (which is what P6 is largely graded on — rename / dedup / test /
+rebase / merge commits, conventional format, ≥4 commits).
 
-P6 is graded largely off the **real git commit history** of the submission branch (rename / dedup
-/ test / rebase / merge commits, conventional format, ≥4 commits). **Point the grader at each
-individual persona branch** — e.g. branch `maya-commits` of `codepath/ai201-p6-submissions`. Each
-branch is a self-contained submission: the watchlist source, `tests/`, `pr-response.md`, and the
-branch's own commit history. The grader reads:
+- On each persona branch: `<persona>/` holds the submission; the other four folders are stub
+  `README.txt` files pointing to their branches.
+- On `main` (this branch): **all five** folders are stubs — `main` is just an index.
 
-- `pr-response.md` (PR Response Doc + PR description, committed at repo root)
-- the branch's actual commit log (`git log` on that branch) — **not** an embedded screenshot
-- the changed watchlist source (`models.py`, `services/watchlist_service.py`,
-  `routes/watchlist/watchlist.py`, `tests/test_watchlist.py`)
+## Grader input
 
-Each branch also carries a `CALIBRATION_NOTES.md` with the full per-sub-point score breakdown and
-any determinism risks.
+Point the grader at each persona's subfolder on its branch:
 
-**Do not grade `main`.** `main` holds only this index, `SETUP_SUMMARY.md`, and the original
-starter (`feature/watchlist` plus the post-refactor `main` state). The persona submissions live on
-their own branches; review them by checking out each branch, not from `main`.
+| Label | URL |
+|---|---|
+| Maya (Persona) | https://github.com/codepath/ai201-p6-submissions/tree/maya-commits/maya |
+| Derek (Persona) | https://github.com/codepath/ai201-p6-submissions/tree/derek-commits/derek |
+| Priya (Persona) | https://github.com/codepath/ai201-p6-submissions/tree/priya-commits/priya |
+| Jordan (Persona) | https://github.com/codepath/ai201-p6-submissions/tree/jordan-commits/jordan |
+| Tyler (Persona) | https://github.com/codepath/ai201-p6-submissions/tree/tyler-commits/tyler |
 
-## Branch baseline
+The grader reads, within each `<persona>/`: `pr-response.md` (PR Response Doc + PR description),
+the persona's source (`models.py`, `services/watchlist_service.py`, `routes/watchlist/watchlist.py`,
+`tests/test_watchlist.py`), and the branch's **actual commit log** (`git log` — not an embedded
+screenshot). Each `<persona>/` also has a `CALIBRATION_NOTES.md` with the full per-sub-point
+breakdown and determinism risks.
 
-- `main` — post-refactor starter state: `Film.id` is `String(36)` UUID; no watchlist.
-- `feature/watchlist` — pre-refactor starter state: `Film.id` / `WatchlistEntry.film_id` are
-  `Integer`; `save_to_watchlist()` not yet renamed; contains the deliberately messy starter commit
-  `added watchlist model and endpoint fixed a bug more changes`.
+**Target scores are intentionally omitted here** so they don't bias grading — they live in each
+persona's `CALIBRATION_NOTES.md` and in `SETUP_SUMMARY.md` (28 / 25 / 18 / 14 / 0 for
+maya / derek / priya / jordan / tyler).
 
-Each persona branch is the starter plus that persona's targeted work; see `SETUP_SUMMARY.md` for
-the exact construction method and deviations from the setup spec.
+**Do not grade `main`** — it has no submission content, only stubs and this index.
+
+## Starter baseline
+
+Forked from the CineLog starter, which had `main` (post-refactor: `Film.id` is UUID) and
+`feature/watchlist` (pre-refactor: `Film.id` / `WatchlistEntry.film_id` are `Integer`;
+`save_to_watchlist()` not yet renamed; the deliberately messy starter commit
+`added watchlist model and endpoint fixed a bug more changes`). See `SETUP_SUMMARY.md` for the
+exact construction method and deviations.

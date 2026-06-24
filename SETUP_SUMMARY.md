@@ -6,6 +6,24 @@
 
 ---
 
+## STRUCTURE UPDATE (2026-06-24) — subfolder layout + preserved history
+
+To give graders/humans the familiar monorepo browsing layout **without losing the real
+per-branch commit history** P6 is graded on, each persona branch was rewritten with
+`git filter-repo --to-subdirectory-filter <persona>`: the branch's entire real history now lives
+under a **`<persona>/` subfolder**, and a tip commit adds stub `README.txt` folders for the other
+four personas plus a branch-level pointer README. `main` was rebuilt as a pure index: top-level
+`README.md` + this file + five stub folders (root starter removed; it remains on `feature/watchlist`).
+
+- Grader input is now **`tree/<persona>-commits/<persona>`** (e.g. `…/tree/maya-commits/maya`).
+- `git log -- <persona>` on each branch returns exactly that persona's real history (the
+  stub/index tip commit touches only sibling paths, so it does not appear in the subfolder log).
+- Branch history rewrite means the persona-branch commit hashes changed and were force-pushed; the
+  commit *messages/topology* (what F1/F2/F3/F6/F7 grade) are identical to the originals, now under
+  the subfolder. jordan's and tyler's merge commits survived the move.
+
+---
+
 ## Starter repo baseline
 
 Confirmed two branches in the starter, both carried into this fork:
@@ -155,7 +173,8 @@ produce a real merge commit; jordan's messy starter commit was reworded, tyler's
 ## Handoff
 
 **Ready for grader validation.** Next step: run each persona through the web-UI grader **pointed at
-the individual persona branch** (`maya-commits`, `derek-commits`, `priya-commits`,
-`jordan-commits`, `tyler-commits`) and paste the output into the validation prompt. Compare against
-the targets above and the per-sub-point breakdowns in each branch's `CALIBRATION_NOTES.md`; the
-five determinism risks above are the first things to check.
+the persona's subfolder on its branch** — `tree/maya-commits/maya`, `tree/derek-commits/derek`,
+`tree/priya-commits/priya`, `tree/jordan-commits/jordan`, `tree/tyler-commits/tyler` — and paste
+the output into the validation prompt. Compare against the targets above and the per-sub-point
+breakdowns in each `<persona>/CALIBRATION_NOTES.md`; the five determinism risks above are the first
+things to check.

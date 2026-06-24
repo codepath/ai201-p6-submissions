@@ -1,92 +1,45 @@
-# CineLog
+# AI201 P6 — CineLog Calibration Submissions
 
-A community film tracking app. Users log films they've watched, rate them, and build collections.
+Calibration submissions for **AI201 Project 6 (CineLog — Simulated Code Review)**, used to
+validate the AI grader against known target scores. Forked from
+[`jamjamgobambam/ai201-project6-cinelog-starter`](https://github.com/jamjamgobambam/ai201-project6-cinelog-starter).
 
-This repository is the starting point for **Project 6: Simulated Code Review**.
+Total points: **28** (25 required + 3 stretch).
 
----
+| Persona | Branch | Tier | Target Score | % of Required |
+|---------|--------|------|-------------|---------------|
+| maya-chen | `maya-commits` | exemplar | 28/28 | 112% |
+| derek-okafor | `derek-commits` | strong | 25/28 | 100% |
+| priya-nair | `priya-commits` | borderline-pass | 18/28 | 72% |
+| jordan-rivera | `jordan-commits` | borderline-fail | 14/28 | 56% |
+| tyler-walsh | `tyler-commits` | minimal | 0/28 | 0% |
 
-## Setup
+## How to run the grader
 
-```bash
-pip install -r requirements.txt
-python app.py
-```
+P6 is graded largely off the **real git commit history** of the submission branch (rename / dedup
+/ test / rebase / merge commits, conventional format, ≥4 commits). **Point the grader at each
+individual persona branch** — e.g. branch `maya-commits` of `codepath/ai201-p6-submissions`. Each
+branch is a self-contained submission: the watchlist source, `tests/`, `pr-response.md`, and the
+branch's own commit history. The grader reads:
 
-The app starts on `http://localhost:5000` and uses a local SQLite database (`cinelog.db`).
+- `pr-response.md` (PR Response Doc + PR description, committed at repo root)
+- the branch's actual commit log (`git log` on that branch) — **not** an embedded screenshot
+- the changed watchlist source (`models.py`, `services/watchlist_service.py`,
+  `routes/watchlist/watchlist.py`, `tests/test_watchlist.py`)
 
----
+Each branch also carries a `CALIBRATION_NOTES.md` with the full per-sub-point score breakdown and
+any determinism risks.
 
-## Project Structure
+**Do not grade `main`.** `main` holds only this index, `SETUP_SUMMARY.md`, and the original
+starter (`feature/watchlist` plus the post-refactor `main` state). The persona submissions live on
+their own branches; review them by checking out each branch, not from `main`.
 
-```
-ai201-project6-cinelog-starter/
-├── app.py                     # Flask app factory
-├── models.py                  # SQLAlchemy models
-├── services/
-│   └── collection_service.py  # Business logic for collections
-├── routes/
-│   ├── films.py               # Film browsing endpoints
-│   └── collection.py          # Collection endpoints
-├── tests/
-│   └── test_collection.py     # Tests for collection service
-├── CONTRIBUTING.md            # Commit conventions and PR guidelines
-└── requirements.txt
-```
+## Branch baseline
 
----
+- `main` — post-refactor starter state: `Film.id` is `String(36)` UUID; no watchlist.
+- `feature/watchlist` — pre-refactor starter state: `Film.id` / `WatchlistEntry.film_id` are
+  `Integer`; `save_to_watchlist()` not yet renamed; contains the deliberately messy starter commit
+  `added watchlist model and endpoint fixed a bug more changes`.
 
-## API Overview
-
-### Films
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/films/` | List all films (supports `?genre=` and `?year=` filters) |
-| GET | `/films/<film_id>` | Get a single film by UUID |
-
-### Collection
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/collection/<user_id>` | Get a user's collection (newest first) |
-| POST | `/collection/<user_id>/add` | Add a film to the collection |
-| DELETE | `/collection/<user_id>/remove` | Remove a film from the collection |
-
----
-
-## Data Models
-
-**Film** — A film in the catalog. IDs are UUIDs.
-
-**User** — A registered user. IDs are UUIDs.
-
-**CollectionEntry** — Links a user to a film they've watched. Stores rating and date added. A user can only have one entry per film.
-
----
-
-## Naming Conventions
-
-Service functions follow a `verb_to_noun` pattern. See `CONTRIBUTING.md` for full details.
-
----
-
-## Running Tests
-
-```bash
-pytest tests/
-```
-
----
-
-## Your Task
-
-You're working on the `feature/watchlist` branch, which adds a watchlist feature to CineLog. A maintainer (`@dev-lead`) has reviewed your PR and left six comments. Your job is to address all six.
-
-Read `CONTRIBUTING.md` before touching any code. Then check out the `feature/watchlist` branch:
-
-```bash
-git checkout feature/watchlist
-```
-
-The open PR and the maintainer's review comments are filed on GitHub. Work through each comment and document your responses in your **PR Response Doc**.
+Each persona branch is the starter plus that persona's targeted work; see `SETUP_SUMMARY.md` for
+the exact construction method and deviations from the setup spec.

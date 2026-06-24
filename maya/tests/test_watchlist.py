@@ -65,3 +65,17 @@ def test_remove_from_watchlist_not_on_list_returns_false(app, sample_user, sampl
     """
     with app.app_context():
         assert remove_from_watchlist(user_id=sample_user, film_id=sample_film) is False
+
+
+def test_add_to_watchlist_duplicate_does_not_create_second_entry(app, sample_user, sample_film):
+    """
+    Edge case: adding the same film twice should not create a duplicate
+    watchlist entry (deduplication returns the existing entry).
+    """
+    with app.app_context():
+        add_to_watchlist(user_id=sample_user, film_id=sample_film)
+        add_to_watchlist(user_id=sample_user, film_id=sample_film)
+        count = WatchlistEntry.query.filter_by(
+            user_id=sample_user, film_id=sample_film
+        ).count()
+        assert count == 1

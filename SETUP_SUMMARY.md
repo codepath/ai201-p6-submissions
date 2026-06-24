@@ -138,10 +138,10 @@ produce a real merge commit; jordan's messy starter commit was reworded, tyler's
 
 ## Grading-file ambiguities & DETERMINISM RISKS (first items for the validation step)
 
-1. **Merge commit ↔ F7 sub1 (jordan, highest priority).** jordan is engineered to sit on the
-   pass/fail line. A **strict** grader counts the merge commit's non-conventional message as
-   failing F7 sub1 → F7 = 2 → **jordan = 14 (fail)**. A **lenient** grader exempting merge commits
-   → F7 sub1 earned → F7 = 3 → **jordan = 15 (pass)**. The rubric should state explicitly whether
+1. **Merge commit ↔ F7 sub1 (jordan, highest priority).** jordan is engineered to sit exactly at
+   this F7 ambiguity. A **strict** grader counts the merge commit's non-conventional message as
+   failing F7 sub1 → F7 = 2 → **jordan = 14**. A **lenient** grader exempting merge commits
+   → F7 sub1 earned → F7 = 3 → **jordan = 15**. The rubric should state explicitly whether
    merge commits are exempt from the conventional-format check. Same merge commit is the F6 sub1
    disqualifier.
 2. **F7 sub3 "≥4 commits reflecting the distinct changes made" (tyler).** Raw-commit-count reading
@@ -161,12 +161,8 @@ produce a real merge commit; jordan's messy starter commit was reworded, tyler's
 
 ---
 
-## Open question carried from the setup spec
-
-- **PASS-THRESHOLD-UNKNOWN:** No numeric pass threshold for P6 is documented in `ai_grading_6.md`,
-  `grading_6.md`, or `pages/grading.md`. The borderline-pass (priya 18) vs borderline-fail
-  (jordan 14) labels assume ~72% as the de facto pass line. Confirm the correct threshold before
-  finalizing pass/fail interpretation.
+Note: the persona tier names (exemplar / strong / borderline / minimal) describe the calibration
+*score spread* — they are not tied to any pass/fail cutoff. P6 has no numeric pass threshold.
 
 ---
 
